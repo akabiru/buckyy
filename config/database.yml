@@ -23,3 +23,22 @@ test:
 production:
   <<: *default
   database: db/production.sqlite3
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: bucketlist_development
+
+test:
+  <<: *default
+  database: bucketlist_test
+
+production:
+  <<: *default
+  database: bucketlist_production
+  username: bucketlist
+  password: <%= ENV['BUCKET_LIST_AKABIRU_DATABASE_PASSWORD'] %>
