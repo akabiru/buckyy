@@ -4,8 +4,8 @@ module API
       before_action :set_bucketlist
 
       def show
-        @bucketlist.items.find_by!(id: params[:id])
-        json_response(@bucketlist)
+        item = @bucketlist.items.find_by!(id: params[:id])
+        json_response(item)
       end
 
       def index
@@ -20,7 +20,13 @@ module API
       def update
         item = @bucketlist.items.find_by!(id: params[:id])
         item.update!(item_params)
-        json_response(@bucketlist)
+        json_response(@bucketlist, :created)
+      end
+
+      def destroy
+        item = @bucketlist.items.find_by!(id: params[:id])
+        item.destroy
+        head :no_content
       end
 
       private
