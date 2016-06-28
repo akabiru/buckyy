@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160619123009) do
+ActiveRecord::Schema.define(version: 20160627105020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "bucket_lists", force: :cascade do |t|
+  create_table "bucketlists", force: :cascade do |t|
     t.string   "name"
     t.string   "created_by"
     t.datetime "created_at", null: false
@@ -25,13 +25,13 @@ ActiveRecord::Schema.define(version: 20160619123009) do
 
   create_table "items", force: :cascade do |t|
     t.string   "name"
-    t.boolean  "done"
-    t.integer  "bucket_list_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.boolean  "done",          default: false, null: false
+    t.integer  "bucketlist_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
-  add_index "items", ["bucket_list_id"], name: "index_items_on_bucket_list_id", using: :btree
+  add_index "items", ["bucketlist_id"], name: "index_items_on_bucketlist_id", using: :btree
 
-  add_foreign_key "items", "bucket_lists"
+  add_foreign_key "items", "bucketlists"
 end
