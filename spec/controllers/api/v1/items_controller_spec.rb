@@ -5,12 +5,6 @@ RSpec.describe API::V1::ItemsController, type: :controller do
 
   let!(:item) { create(:item, bucketlist_id: bucketlist.id) }
 
-  shared_examples "setting a bucketlist" do
-    it "sets the bucketlist" do
-      expect(assigns(:bucketlist)).to eq(bucketlist)
-    end
-  end
-
   describe "GET #index" do
     before { get :index, bucketlist_id: bucketlist.id }
 
