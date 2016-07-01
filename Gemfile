@@ -6,6 +6,9 @@ gem 'pg'
 gem 'figaro'
 gem 'puma'
 gem 'active_model_serializers', '~> 0.10.0.rc2'
+gem 'bcrypt', '~> 3.1.7'
+gem 'jwt'
+gem 'simple_command'
 
 group :development do
   gem 'spring'
