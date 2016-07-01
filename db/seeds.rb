@@ -1,7 +1,23 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+class Seed
+  def create_bucketlists
+    Bucketlist.create(
+      name: Faker::Lorem.word,
+      created_by: Faker::StarWars.character
+    )
+  end
+
+  def create_items
+    Bucketlist.all.each do |bucketlist|
+      bucketlist.items.create(name: Faker::StarWars.character)
+    end
+  end
+
+  def perform
+    Bucketlist.destroy_all
+    Item.destroy_all
+    10.times { create_bucketlists }
+    create_items
+  end
+end
+
+Seed.new().perform
