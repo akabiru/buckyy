@@ -1,13 +1,19 @@
 require "rails_helper"
 
 RSpec.describe API::V1::BucketlistsController, type: :controller do
-  let!(:bucketlist) { create(:bucketlist) }
+  let!(:user) { create(:user) }
+  let!(:headers) { set_headers }
+  let!(:bucketlist) { create(:bucketlist, created_by: user.id) }
+
+  before { allow(request).to receive(:headers).and_return(headers) }
+
+  it_behaves_like "an api controller", { id: 'not-existing' }
 
   describe 'GET #index' do
     before { get :index }
 
     it "returns a status code 200" do
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(200)
     end
 
     it "assigns bucketlists to @bucketlists" do
@@ -18,8 +24,7 @@ RSpec.describe API::V1::BucketlistsController, type: :controller do
       context "when the record exists" do
         it "finds the bucketlist" do
           get :index, q: bucketlist.name
-          parsed_response = json(response.body)
-          expect(parsed_response.first["name"]).to eq(bucketlist.name)
+          expect(json.first["name"]).to eq(bucketlist.name)
         end
       end
 
@@ -27,7 +32,7 @@ RSpec.describe API::V1::BucketlistsController, type: :controller do
         before { get :index, q: 'example record' }
 
         it "returns a status code 404" do
-          expect(response.status).to eq(404)
+          expect(response).to have_http_status(404)
         end
 
         it 'returns a message' do
@@ -41,7 +46,7 @@ RSpec.describe API::V1::BucketlistsController, type: :controller do
     before { get :show, id: bucketlist.id }
 
     it "returns a status code 200" do
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(200)
     end
 
     it "assigns bucketlist to @bucketlist" do
@@ -49,8 +54,7 @@ RSpec.describe API::V1::BucketlistsController, type: :controller do
     end
 
     it "shows a bucketlist" do
-      parsed_response = json(response.body)
-      expect(parsed_response["name"]).to eq(bucketlist.name)
+      expect(json["name"]).to eq(bucketlist.name)
     end
   end
 
@@ -59,26 +63,26 @@ RSpec.describe API::V1::BucketlistsController, type: :controller do
 
     context "when valid request" do
       it "returns a status code 201" do
-        post :create, name: bucketlist.name, created_by: bucketlist.created_by
-        expect(response.status).to eq(201)
+        post :create, name: bucketlist.name, created_by: user.id
+        expect(response).to have_http_status(201)
       end
 
       it "creates a new bucketlist" do
         expect do
-          post :create, name: bucketlist.name, created_by: bucketlist.created_by
+          post :create, name: bucketlist.name, created_by: user.id
         end.to change(Bucketlist, :count).by(1)
       end
     end
 
     context "when invalid request" do
       it "returns a status code 422" do
-        post :create, name: nil, created_by: bucketlist.created_by
-        expect(response.status).to eq(422)
+        post :create, name: nil, created_by: user.id
+        expect(response).to have_http_status(422)
       end
 
       it "does not create a new bucketlist" do
         expect do
-          post :create, name: nil, created_by: bucketlist.created_by
+          post :create, name: nil, created_by: user.id
         end.to change(Bucketlist, :count).by(0)
       end
     end
@@ -87,9 +91,8 @@ RSpec.describe API::V1::BucketlistsController, type: :controller do
   describe 'GET #show' do
     it 'retrieves a bucketlist' do
       get :show, id: bucketlist.id
-      parsed_response = json(response.body)
-      expect(parsed_response["name"]).to eq(bucketlist.name)
-      expect(response.status).to eq(200)
+      expect(json["name"]).to eq(bucketlist.name)
+      expect(response).to have_http_status(200)
     end
   end
 
@@ -98,7 +101,7 @@ RSpec.describe API::V1::BucketlistsController, type: :controller do
       put :update, id: bucketlist.id, name: 'Mozart'
       updated_bucketlist = Bucketlist.find(bucketlist.id)
       expect(updated_bucketlist.name).to eq('Mozart')
-      expect(response.status).to eq(204)
+      expect(response).to have_http_status(204)
     end
   end
 
@@ -109,7 +112,7 @@ RSpec.describe API::V1::BucketlistsController, type: :controller do
       expect do
         delete :destroy, id: bucketlists.last.id
       end.to change(Bucketlist, :count).by(-1)
-      expect(response.status).to eq(204)
+      expect(response).to have_http_status(204)
     end
   end
 end

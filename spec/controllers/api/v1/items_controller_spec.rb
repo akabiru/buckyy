@@ -1,21 +1,25 @@
 require "rails_helper"
 
 RSpec.describe API::V1::ItemsController, type: :controller do
-  let(:bucketlist) { create(:bucketlist) }
-
+  let!(:user) { create(:user) }
+  let!(:bucketlist) { create(:bucketlist, created_by: user.id) }
   let!(:item) { create(:item, bucketlist_id: bucketlist.id) }
+  let!(:headers) { set_headers }
+
+  before { allow(request).to receive(:headers).and_return(headers) }
+
+  it_behaves_like "an api controller", { bucketlist_id: 'foo', id: 'bar' }
 
   describe "GET #index" do
     before { get :index, bucketlist_id: bucketlist.id }
 
     it "retuns the bucketlist items" do
-      parsed_response = json(response.body)
-      expect(parsed_response.size).to eq(1)
-      expect(parsed_response.first["name"]).to eq(item.name)
+      expect(json.size).to eq(1)
+      expect(json.first["name"]).to eq(item.name)
     end
 
     it "returns status code 200" do
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(200)
     end
   end
 
@@ -23,8 +27,7 @@ RSpec.describe API::V1::ItemsController, type: :controller do
     before { get :show, bucketlist_id: bucketlist.id, id: item.id }
 
     it 'retuns the bucketlist item' do
-      parsed_response = json(response.body)
-      expect(parsed_response["name"]).to eq(item.name)
+      expect(json["name"]).to eq(item.name)
     end
   end
 
@@ -33,7 +36,7 @@ RSpec.describe API::V1::ItemsController, type: :controller do
       expect do
         post :create, item_valid_atrr
       end.to change(Item, :count).by(1)
-      expect(response.status).to eq(201)
+      expect(response).to have_http_status(201)
     end
   end
 
@@ -42,7 +45,7 @@ RSpec.describe API::V1::ItemsController, type: :controller do
       put :update, bucketlist_id: bucketlist.id, id: item.id, name: 'Chopin'
       updated_item = Item.find(item.id)
       expect(updated_item.name).to eq('Chopin')
-      expect(response.status).to eq(201)
+      expect(response).to have_http_status(201)
     end
   end
 
@@ -53,7 +56,7 @@ RSpec.describe API::V1::ItemsController, type: :controller do
       expect do
         delete :destroy, bucketlist_id: bucketlist.id, id: new_item.id
       end.to change(Item, :count).by(-1)
-      expect(response.status).to eq(204)
+      expect(response).to have_http_status(204)
     end
   end
 

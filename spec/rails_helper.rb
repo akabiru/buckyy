@@ -71,5 +71,5 @@ RSpec.configure do |config|
       example.run
     end
   end
-  config.include BucketListControllerSpecHelper, type: :controller
+  config.include ControllerSpecHelper, type: :controller
 end

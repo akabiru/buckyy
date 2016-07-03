@@ -9,5 +9,8 @@ Rails.application.routes.draw do
     end
   end
 
-  post 'authenticate', to: 'authentication#authenticate'
+  post 'auth/login', to: 'authentication#authenticate'
+  get 'auth/logout', to: 'authentication#logout'
+
+  post 'signup', to: 'users#create'
 end
