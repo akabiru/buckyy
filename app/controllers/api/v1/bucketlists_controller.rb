@@ -14,7 +14,7 @@ module API
       end
 
       def create
-        @bucketlist = Bucketlist.new(list_params)
+        @bucketlist = @current_user.bucketlists.new(list_params)
         @bucketlist.save!
         json_response(@bucketlist, :created)
       end
