@@ -9,7 +9,7 @@ module API
       end
 
       def index
-        @bucketlists = Bucketlist.all
+        @bucketlists = @current_user.bucketlists
         json_response(@bucketlists)
       end
 
