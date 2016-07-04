@@ -103,11 +103,11 @@ Response (application/json)
             "items": [
                 {
                     "bucketlist_id": 3,
-                    "created_at": "2016-06-30T12:57:51.611Z",
                     "done": false,
                     "id": 3,
                     "name": "Obi-Wan Kenobi",
-                    "updated_at": "2016-06-30T12:57:51.611Z"
+                    "date_created": "2016-07-04  5:16:12",
+                    "date_modified": "2016-07-04  5:16:12",
                 }
             ],
             "name": "eaque"
@@ -118,11 +118,11 @@ Response (application/json)
             "items": [
                 {
                     "bucketlist_id": 4,
-                    "created_at": "2016-06-30T12:57:51.613Z",
                     "done": false,
                     "id": 4,
                     "name": "Chewbacca",
-                    "updated_at": "2016-06-30T12:57:51.613Z"
+                    "date_created": "2016-07-04  5:16:12",
+                    "date_modified": "2016-07-04  5:16:12",
                 }
             ],
             "name": "non"
