@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/andela-akabiru/buckyy.svg?branch=master)](https://travis-ci.org/andela-akabiru/buckyy) [![Coverage Status](https://coveralls.io/repos/github/andela-akabiru/bucket-list-api/badge.svg?branch=master)](https://coveralls.io/github/andela-akabiru/bucket-list-api?branch=master) [![Code Climate](https://codeclimate.com/github/andela-akabiru/bucket-list-api/badges/gpa.svg)](https://codeclimate.com/github/andela-akabiru/bucket-list-api)
+[![Build Status](https://travis-ci.org/andela-akabiru/buckyy.svg?branch=master)](https://travis-ci.org/andela-akabiru/buckyy) [![Coverage Status](https://coveralls.io/repos/github/andela-akabiru/bucket-list-api/badge.svg?branch=master)](https://coveralls.io/github/andela-akabiru/buckyy?branch=master) [![Code Climate](https://codeclimate.com/github/andela-akabiru/bucket-list-api/badges/gpa.svg)](https://codeclimate.com/github/andela-akabiru/bucket-list-api)
 
 
 # Buckyy :roller_coaster: :sailboat:
@@ -15,6 +15,7 @@ can have many items.
 * [Versions](#versions)
 * [Request & Response Examples](#request--response-examples)
 * [Contributing](#contributing)
+* [Apiary Documentation](http://docs.buckyy.apiary.io)
 
 ## API Features
 
