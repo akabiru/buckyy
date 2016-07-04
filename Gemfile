@@ -9,6 +9,7 @@ gem 'active_model_serializers', '~> 0.10.0.rc2'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 gem 'simple_command'
+gem 'faker'
 
 group :development do
   gem 'spring'
@@ -18,7 +19,6 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 3.4'
   gem 'pry-rails'
-  gem 'faker'
   gem 'guard-rspec', require: false
 end
 
