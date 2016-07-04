@@ -14,6 +14,6 @@ class ApiVersion
 
   def check_headers(headers)
     accept = headers["Accept"]
-    accept && accept.include?("application/vnd.bucketlists.#{@version}+json")
+    accept && accept.include?("application/vnd.buckyy.#{@version}+json")
   end
 end

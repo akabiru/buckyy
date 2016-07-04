@@ -11,7 +11,7 @@ module ControllerSpecHelper
     {
       "Authorization" => token_generator(user.id),
       "Content-Type" => "application/json",
-      "Accept" => "application/vnd.bucketlists.v1+json"
+      "Accept" => "application/vnd.buckyy.v1+json"
     }
   end
 end
