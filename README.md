@@ -31,7 +31,7 @@ can have many items.
   2. `cd buckyy`
   3. `bundle install`
   4. `rake db:setup`
-  5. `rails serve`
+  5. `rails server`
 
 The above will get you a copy of the project up and running on your local machine for development and testing purposes.
 
