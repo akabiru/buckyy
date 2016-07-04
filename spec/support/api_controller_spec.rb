@@ -6,7 +6,7 @@ RSpec.shared_examples "an api controller" do |id_params|
       before { get :show, id_params }
 
       it { expect(response).to have_http_status(404) }
-      it { expect(response.body).to match(/Couldn't find/)  }
+      it { expect(response.body).to match(/Couldn't find/) }
     end
 
     context "on PUT #update" do

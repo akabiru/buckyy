@@ -7,7 +7,7 @@ RSpec.describe API::V1::BucketlistsController, type: :controller do
 
   before { allow(request).to receive(:headers).and_return(headers) }
 
-  it_behaves_like "an api controller", { id: 'not-existing' }
+  it_behaves_like "an api controller", id: "not-existing"
 
   describe 'GET #index' do
     before { get :index }
@@ -29,13 +29,13 @@ RSpec.describe API::V1::BucketlistsController, type: :controller do
       end
 
       context "when the record doesn't exist" do
-        before { get :index, q: 'example record' }
+        before { get :index, q: "example record" }
 
         it "returns a status code 404" do
           expect(response).to have_http_status(404)
         end
 
-        it 'returns a message' do
+        it "returns a message" do
           expect(response.body).to eq("Sorry, example record not found.")
         end
       end
@@ -89,7 +89,7 @@ RSpec.describe API::V1::BucketlistsController, type: :controller do
   end
 
   describe 'GET #show' do
-    it 'retrieves a bucketlist' do
+    it "retrieves a bucketlist" do
       get :show, id: bucketlist.id
       expect(json["name"]).to eq(bucketlist.name)
       expect(response).to have_http_status(200)
@@ -97,10 +97,10 @@ RSpec.describe API::V1::BucketlistsController, type: :controller do
   end
 
   describe 'PUT #update' do
-    it 'updates a bucketlist' do
-      put :update, id: bucketlist.id, name: 'Mozart'
+    it "updates a bucketlist" do
+      put :update, id: bucketlist.id, name: "Mozart"
       updated_bucketlist = Bucketlist.find(bucketlist.id)
-      expect(updated_bucketlist.name).to eq('Mozart')
+      expect(updated_bucketlist.name).to eq("Mozart")
       expect(response).to have_http_status(204)
     end
   end
@@ -108,7 +108,7 @@ RSpec.describe API::V1::BucketlistsController, type: :controller do
   describe 'DELETE #destroy' do
     let!(:bucketlists) { create_list(:bucketlist, 5) }
 
-    it 'deletes a bucketlist' do
+    it "deletes a bucketlist" do
       expect do
         delete :destroy, id: bucketlists.last.id
       end.to change(Bucketlist, :count).by(-1)
