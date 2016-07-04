@@ -10,6 +10,7 @@ module API
 
       def index
         @bucketlists = @current_user.bucketlists
+        @bucketlists = @bucketlists.paginate(params) if pagination_present?
         json_response(@bucketlists)
       end
 
@@ -41,6 +42,10 @@ module API
 
       def query_present?
         params[:q].present?
+      end
+
+      def pagination_present?
+        params[:page].present? || params[:limit].present?
       end
 
       def search_bucketlist
