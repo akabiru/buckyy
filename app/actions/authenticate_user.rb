@@ -16,6 +16,6 @@ class AuthenticateUser
     user = User.find_by_email(email)
     return user if user && user.authenticate(password)
 
-    raise(BucketlistError::AuthenticationError, Message.invalid_credentials)
+    raise(ExceptionHandler::AuthenticationError, Message.invalid_credentials)
   end
 end

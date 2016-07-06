@@ -1,7 +1,7 @@
 module API
   module V1
     class ItemsController < ApplicationController
-      before_action :set_bucketlist
+      before_action { set_bucketlist(params[:bucketlist_id]) }
       before_action :set_bucketlist_item, only: [:show, :update, :destroy]
 
       def show
@@ -28,10 +28,6 @@ module API
       end
 
       private
-
-      def set_bucketlist
-        @bucketlist = Bucketlist.find_by!(id: params[:bucketlist_id])
-      end
 
       def set_bucketlist_item
         @item = @bucketlist.items.find_by!(id: params[:id]) if @bucketlist

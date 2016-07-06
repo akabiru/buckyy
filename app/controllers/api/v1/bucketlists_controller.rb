@@ -1,7 +1,9 @@
 module API
   module V1
     class BucketlistsController < ApplicationController
-      before_action :set_bucketlist, only: [:show, :update, :destroy]
+      before_action only: [:show, :update, :destroy] do
+        set_bucketlist(params[:id])
+      end
       before_action :search_bucketlist, if: :query_present?, only: :index
 
       def show
@@ -32,10 +34,6 @@ module API
 
       private
 
-      def set_bucketlist
-        @bucketlist = Bucketlist.find_by!(id: params[:id])
-      end
-
       def list_params
         params.permit(:name, :created_by)
       end
@@ -49,8 +47,7 @@ module API
       end
 
       def search_bucketlist
-        bucketlist = Bucketlist.search!(params[:q])
-        json_response(bucketlist)
+        json_response(Bucketlist.search(params[:q]))
       end
     end
   end
