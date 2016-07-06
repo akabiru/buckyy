@@ -2,10 +2,10 @@ module API
   module V1
     class ItemsController < ApplicationController
       before_action :set_bucketlist
+      before_action :set_bucketlist_item, only: [:show, :update, :destroy]
 
       def show
-        item = @bucketlist.items.find_by!(id: params[:id])
-        json_response(item)
+        json_response(@item)
       end
 
       def index
@@ -18,14 +18,12 @@ module API
       end
 
       def update
-        item = @bucketlist.items.find_by!(id: params[:id])
-        item.update!(item_params)
+        @item.update!(item_params)
         json_response(@bucketlist, :created)
       end
 
       def destroy
-        item = @bucketlist.items.find_by!(id: params[:id])
-        item.destroy
+        @item.destroy
         head :no_content
       end
 
@@ -33,6 +31,10 @@ module API
 
       def set_bucketlist
         @bucketlist = Bucketlist.find_by!(id: params[:bucketlist_id])
+      end
+
+      def set_bucketlist_item
+        @item = @bucketlist.items.find_by!(id: params[:id]) if @bucketlist
       end
 
       def item_params

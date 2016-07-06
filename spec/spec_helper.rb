@@ -1,4 +1,7 @@
+require 'simplecov'
 require 'coveralls'
+
+SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 Coveralls.wear!
 
 RSpec.configure do |config|

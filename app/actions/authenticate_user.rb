@@ -1,6 +1,4 @@
 class AuthenticateUser
-  prepend SimpleCommand
-
   def initialize(email, password)
     @email = email
     @password = password
@@ -18,7 +16,6 @@ class AuthenticateUser
     user = User.find_by_email(email)
     return user if user && user.authenticate(password)
 
-    errors.add :user_authentication, Message.invalid_credentials
-    nil
+    raise(BucketlistError::AuthenticationError, Message.invalid_credentials)
   end
 end

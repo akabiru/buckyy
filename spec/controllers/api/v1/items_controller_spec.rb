@@ -28,6 +28,7 @@ RSpec.describe API::V1::ItemsController, type: :controller do
 
     it "retuns the bucketlist item" do
       expect(json["name"]).to eq(item.name)
+      expect(response).to have_http_status(200)
     end
   end
 

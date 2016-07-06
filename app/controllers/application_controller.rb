@@ -7,7 +7,6 @@ class ApplicationController < ActionController::API
   private
 
   def authenticate_request
-    @current_user = AuthorizeApiRequest.call(request.headers).result
-    json_response({ error: Message.unauthorized }, 401) unless @current_user
+    @current_user = AuthorizeApiRequest.new(request.headers).call
   end
 end
