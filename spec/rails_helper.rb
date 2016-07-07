@@ -71,5 +71,5 @@ RSpec.configure do |config|
       example.run
     end
   end
-  config.include ControllerSpecHelper, type: :controller
+  config.include ControllerSpecHelper
 end
