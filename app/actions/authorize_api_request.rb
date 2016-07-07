@@ -17,7 +17,7 @@ class AuthorizeApiRequest
   rescue ActiveRecord::RecordNotFound => e
     raise(
       ExceptionHandler::InvalidToken,
-      (Message.invalid_token + ' ' + e.message)
+      (Message.invalid_token + " " + e.message)
     )
   end
 
