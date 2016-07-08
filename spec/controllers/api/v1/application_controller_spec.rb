@@ -1,9 +1,18 @@
 require "rails_helper"
+require Rails.root.join "spec/concerns/exception_handler_spec.rb"
 
 RSpec.describe API::V1::ApplicationController, type: :controller do
-  it { should rescue_from(ActiveRecord::RecordNotFound) }
+  let!(:user) { create(:user) }
+  let!(:headers) { set_headers }
+  let!(:bucketlist) { create(:bucketlist, created_by: user.id) }
 
-  it { should rescue_from(ActiveRecord::RecordNotSaved) }
+  it_behaves_like "an exception handler"
 
-  it { should rescue_from(ActiveRecord::RecordInvalid) }
+  describe "#authenticate_request" do
+    before { allow(request).to receive(:headers).and_return(headers) }
+
+    it "sets the current user" do
+      expect(subject.instance_eval { authenticate_request }).to eq(user)
+    end
+  end
 end

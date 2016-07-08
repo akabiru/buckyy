@@ -4,7 +4,7 @@ class Message
   end
 
   def self.invalid_credentials
-    "Invalid credetials"
+    "Invalid credentials"
   end
 
   def self.invalid_token
@@ -25,5 +25,9 @@ class Message
 
   def self.account_not_created
     "Account could not be created"
+  end
+
+  def self.expired_token
+    "Sorry, your token has expired. Please login to continue."
   end
 end

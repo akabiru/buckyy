@@ -31,7 +31,7 @@ can have many items.
   2. `cd buckyy`
   3. `bundle install`
   4. `rake db:setup`
-  5. `rails serve`
+  5. `rails server`
 
 The above will get you a copy of the project up and running on your local machine for development and testing purposes.
 
@@ -58,9 +58,10 @@ All endpoints except `/signup` require a token for authentication. The API call 
 | --------------------------------------- | ------------------------------------:|
 | POST /signup                            | Signup a user                        |
 | POST /auth/login                        | Login user                           |
-| GET /auth/logout                        | Logout a user                        |
+| GET /auth/logout                        | Logout user                          |
 | POST /bucketlists/                      | Create a new bucket list             |
 | GET /bucketlists/                       | List all the created bucket lists    |
+| GET /bucketlists?page=1&limit=5         | List five bucketlists from page 1    |
 | GET /bucketlists/:id                    | Get single bucket list               |
 | PUT /bucketlists/:id                    | Update this bucketlist               |
 | DELETE /bucketlists/:id                 | Delete this single bucketlist        |
@@ -90,9 +91,9 @@ No breaking changes. :smiley:
 
 ## Request & Response examples
 
-Request GET /bucketlists
+Request GET /bucketlists?page=2&limit=2
 
-     http https://buckyy.herokuapp.com/bucketlists \
+     http https://buckyy.herokuapp.com/bucketlists?page=2&limit=2 \
      Authorization: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE0Njc2MTkxNDV9.R6VLZD4qtsdVHXZwU8bEo6S16cbNQfo7lICsNdAq00I'
 
 Response (application/json)

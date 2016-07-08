@@ -8,7 +8,6 @@ gem 'puma'
 gem 'active_model_serializers', '~> 0.10.0.rc2'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
-gem 'simple_command'
 gem 'faker'
 
 group :development do
@@ -27,4 +26,5 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'database_cleaner'
   gem 'coveralls', require: false
+  gem 'simplecov', require: false
 end

@@ -1,13 +1,13 @@
 class AuthenticationController < ApplicationController
-  skip_before_action :authenticate_request
+  skip_before_action :authenticate_request, only: :authenticate
 
   def authenticate
-    command = AuthenticateUser.call(params[:email], params[:password])
+    @auth_token = AuthenticateUser.new(params[:email], params[:password]).call
+    json_response(auth_token: @auth_token)
+  end
 
-    if command.success?
-      json_response(auth_token: command.result)
-    else
-      json_response({ error: command.errors }, :unauthorized)
-    end
+  def logout
+    @current_user.invalid_tokens.create!(token: @token)
+    json_response(message: "Successfully logged out")
   end
 end
