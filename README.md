@@ -58,7 +58,6 @@ All endpoints except `/signup` require a token for authentication. The API call 
 | --------------------------------------- | ------------------------------------:|
 | POST /signup                            | Signup a user                        |
 | POST /auth/login                        | Login user                           |
-| GET /auth/logout                        | Logout a user                        |
 | POST /bucketlists/                      | Create a new bucket list             |
 | GET /bucketlists/                       | List all the created bucket lists    |
 | GET /bucketlists/:id                    | Get single bucket list               |
