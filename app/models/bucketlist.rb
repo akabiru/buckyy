@@ -5,7 +5,7 @@ class Bucketlist < ActiveRecord::Base
   belongs_to :user, foreign_key: :created_by
   validates_presence_of :name
 
-  def self.search(name)
+  scope :search, -> (name) do
     bucketlists = where("name ILIKE ?", "#{name}%")
     raise(
       ActiveRecord::RecordNotFound, Message.not_found(name)

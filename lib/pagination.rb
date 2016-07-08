@@ -17,7 +17,13 @@ class Pagination
   private
 
   def check_limit_and_offset
-    @limit = DEFAULT_LIMIT if @limit <= 0 || @limit > MAX_LIMIT
-    @offset = (@offset - 1) * @limit
+    @limit = if @limit <= 0
+      DEFAULT_LIMIT
+    elsif @limit > MAX_LIMIT
+      MAX_LIMIT
+    else
+      @limit
+    end
+    @offset = @offset >= 1 ? ((@offset - 1) * @limit) : 0
   end
 end

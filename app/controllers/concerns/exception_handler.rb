@@ -14,17 +14,17 @@ module ExceptionHandler
     rescue_from ExceptionHandler::ExpiredSignature, with: :four_twenty_two
 
     rescue_from ActiveRecord::RecordNotFound do |e|
-      json_response(e.message, :not_found)
+      json_response({ message: e.message }, :not_found)
     end
 
     rescue_from ExceptionHandler::AuthenticationError do |e|
-      json_response(e.message, :unauthorized)
+      json_response({ message: e.message }, :unauthorized)
     end
   end
 
   private
 
   def four_twenty_two(e)
-    json_response(e.message, :unprocessable_entity)
+    json_response({ message: e.message }, :unprocessable_entity)
   end
 end

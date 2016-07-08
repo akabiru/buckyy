@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_request
+  skip_before_action :authenticate_request, only: :create
 
   def create
     user = User.new(user_params)
@@ -8,7 +8,10 @@ class UsersController < ApplicationController
       response = { message: Message.account_created, auth_token: auth_token }
       json_response(response, :created)
     else
-      json_response(Message.account_not_created, :unprocessable_entity)
+      json_response(
+        { message: Message.account_not_created },
+        :unprocessable_entity
+      )
     end
   end
 

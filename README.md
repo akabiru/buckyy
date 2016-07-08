@@ -62,6 +62,7 @@ All endpoints except `/signup` require a token for authentication. The API call 
 | POST /bucketlists/                      | Create a new bucket list             |
 | GET /bucketlists/                       | List all the created bucket lists    |
 | GET /bucketlists?page=1&limit=5         | List five bucketlists from page 1    |
+| GET /bucketlists?q=bucket               | Search for bucketlist                |
 | GET /bucketlists/:id                    | Get single bucket list               |
 | PUT /bucketlists/:id                    | Update this bucketlist               |
 | DELETE /bucketlists/:id                 | Delete this single bucketlist        |

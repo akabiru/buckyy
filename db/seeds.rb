@@ -23,11 +23,12 @@ class Seed
   end
 
   def perform
+    InvalidToken.destroy_all
     User.destroy_all
     Bucketlist.destroy_all
     Item.destroy_all
     create_user
-    10.times { create_bucketlists }
+    200.times { create_bucketlists }
     create_items
   end
 end
