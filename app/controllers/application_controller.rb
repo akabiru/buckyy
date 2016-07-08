@@ -9,6 +9,18 @@ class ApplicationController < ActionController::API
   private
 
   def authenticate_request
-    @current_user = AuthorizeApiRequest.new(request.headers).call
+    result = AuthorizeApiRequest.new(request.headers).call
+    @token = result[:token]
+    @current_user = result[:user]
+    if current_user_invalid_tokens.include? @token
+      raise ExceptionHandler::ExpiredSignature, Message.expired_token
+    end
+    @current_user
+  end
+
+  def current_user_invalid_tokens
+    tokens = []
+    @current_user.invalid_tokens.each { |t| tokens << t.token }
+    tokens
   end
 end

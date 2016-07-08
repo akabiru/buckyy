@@ -4,7 +4,10 @@ class AuthorizeApiRequest
   end
 
   def call
-    user
+    {
+      user: user,
+      token: http_auth_header
+    }
   end
 
   private
