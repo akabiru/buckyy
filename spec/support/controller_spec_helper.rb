@@ -18,4 +18,12 @@ module ControllerSpecHelper
       "Accept" => "application/vnd.buckyy.v1+json"
     }
   end
+
+  def set_invalid_headers
+    {
+      "Authorization" => nil,
+      "Content-Type" => "application/json",
+      "Accept" => "application/vnd.buckyy.v1+json"
+    }
+  end
 end

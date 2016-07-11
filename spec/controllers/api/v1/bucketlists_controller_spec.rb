@@ -36,7 +36,7 @@ RSpec.describe API::V1::BucketlistsController, type: :controller do
         end
 
         it "returns a message" do
-          expect(response.body).to eq("Sorry, example record not found.")
+          expect(json["message"]).to match(/Sorry, example record not found./)
         end
       end
     end
