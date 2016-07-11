@@ -23,7 +23,7 @@ class Seed
   end
 
   def perform
-    InvalidToken.destroy_all
+    Token.destroy_all
     User.destroy_all
     Bucketlist.destroy_all
     Item.destroy_all

@@ -9,7 +9,7 @@ class Pagination
     @offset = params[:page].to_i
   end
 
-  def perform
+  def call
     check_limit_and_offset
     { offset: @offset, limit: @limit }
   end
@@ -18,12 +18,12 @@ class Pagination
 
   def check_limit_and_offset
     @limit = if @limit <= 0
-      DEFAULT_LIMIT
-    elsif @limit > MAX_LIMIT
-      MAX_LIMIT
-    else
-      @limit
-    end
+               DEFAULT_LIMIT
+             elsif @limit > MAX_LIMIT
+               MAX_LIMIT
+             else
+               @limit
+             end
     @offset = @offset >= 1 ? ((@offset - 1) * @limit) : 0
   end
 end

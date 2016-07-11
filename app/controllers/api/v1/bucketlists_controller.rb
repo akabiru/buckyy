@@ -11,10 +11,11 @@ module API
 
       def index
         @bucketlists = if query_present?
-          @current_user.bucketlists.search(params[:q]).paginate(params)
-        else
-          @current_user.bucketlists.paginate(params)
-        end
+                         @current_user.bucketlists.search(params[:q]).
+                           paginate(params)
+                       else
+                         @current_user.bucketlists.paginate(params)
+                       end
         json_response(@bucketlists)
       end
 

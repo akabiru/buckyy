@@ -7,7 +7,7 @@ class AuthenticationController < ApplicationController
   end
 
   def logout
-    @current_user.invalid_tokens.create!(token: @token)
+    @current_user.tokens.create!(token: @token)
     json_response(message: "Successfully logged out")
   end
 end

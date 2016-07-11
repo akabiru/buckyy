@@ -1,5 +1,5 @@
 require "rails_helper"
-require Rails.root.join "spec/concerns/paginable_spec.rb"
+require Rails.root.join "spec/concerns/paginable.rb"
 
 RSpec.describe Bucketlist, type: :model do
   it { should have_many(:items).dependent(:destroy) }
