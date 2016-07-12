@@ -1,0 +1,444 @@
+FORMAT: 1A
+HOST: https://buckyy.herokuapp.com
+
+# Buckyy
+
+Buckyy is a simple API for a bucketlist application allowing consumers to perform CRUD operations
+on bucketlists. A bucketlist has many items and belongs to a user.
+
+API V1 https://github.com/andela-akabiru/buckyy
+
+
+# Documentation guidelines
+
+This is a RESTful API. Thus, all operations on resources will be described by their corresponding
+Http verb.
+
+In order to access the API resources, authentication is required. All requests except ``` /auth/signin ``` require
+an authentication token passed in the ``` Authorization ``` header.
+
+# Group User
+
+Resources related to users in the API
+
+
+### Create A New User [POST /signup]
+
+This endpoint serves to signup new users. A user creates an account by making
+a post request to ``` /signup ```. No authentication is required.
+
++ firstname (string) - First name of the user
++ lastname (string) - Last name of the user
++ email (string) - Unique email of the user
++ password (string)
++ password_confirmation (string) - Must be the same as password
+
++ Request (application/json)
+
+        {
+            "firstname": "Foo",
+            "lastname": "Bar",
+            "email": "foo@bar.com",
+            "password": "foobar",
+            "password_confirmation": "foobar"
+        }
+
++ Response 201 (application/json)
+
+  + Body
+
+            {
+                "message": "Account created successfully"
+            }
+
+### Login A User [POST /auth/login]
+
+This endpoint serves to login existing users. It expects ```email``` and ``` password ```
+for authentication and returns a token that expires 24 hours from the time it's created.
+
+
++ Request (application/json)
+
+        {
+            "email": "me@andela.com",
+            "password": "foobar"
+        }
+
++ Response 200 (application/json)
+
+        {
+              "auth_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE0NjI5ODIyOTh9.pFyQmqKmca9GeU9hxzbvl0LCzpp13N9Ei2nzdGFrlUs"
+        }
+
+
+### User Logout [GET /auth/logout]
+
+This endpoint logs out a user
+
++ Response 200 (application/json)
+
+        {
+            "message": "Sorry, your token has expired. Please login to continue."
+        }
+
+
+# Group Bucketlists
+
+Resources related to buckelists in the API
+
+## Bucketlist Collection [/bucketlists]
+
+This endpoint serves all bucketlists belonging to a particular user.
+The endpoint supports pagination, by default the pagination has a minimum default value of ```20``` and a maximum of ```100``` bucketlists.
+
+### List All Bucketlists [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "created_by": "1",
+                "id": 3,
+                "items": [
+                    {
+                        "bucketlist_id": 3,
+                        "done": false,
+                        "id": 3,
+                        "name": "Obi-Wan Kenobi",
+                        "date_created": "2016-07-04  8:12:05",
+                        "date_modified": "2016-07-04  8:12:05"
+                    }
+                ],
+                "name": "eaque"
+            },
+            {
+                "created_by": "1",
+                "id": 4,
+                "items": [
+                    {
+                        "bucketlist_id": 4,
+                        "done": false,
+                        "id": 4,
+                        "name": "Chewbacca",
+                        "date_created": "2016-07-04  8:12:05",
+                        "date_modified": "2016-07-04  8:12:05"
+                    }
+                ],
+                "name": "non"
+            }
+        ]
+
+
+### List Paginated Bucketlists [GET /bucketlists?page=2&limit=3]
+
++ Request (application/json)
+
+        + page (number) - The page of the records determined by limit
+        + limit (number) - The number of records you want
+
++ Response 200 (application/json)
+
+        [
+            {
+                "created_by": "1",
+                "id": 3,
+                "items": [
+                    {
+                        "bucketlist_id": 3,
+                        "done": false,
+                        "id": 3,
+                        "name": "Obi-Wan Kenobi",
+                        "date_created": "2016-07-04  8:12:05",
+                        "date_modified": "2016-07-04  8:12:05"
+                    }
+                ],
+                "name": "eaque"
+            },
+            {
+                "created_by": "1",
+                "id": 4,
+                "items": [
+                    {
+                        "bucketlist_id": 4,
+                        "done": false,
+                        "id": 4,
+                        "name": "Chewbacca",
+                        "date_created": "2016-07-04  8:12:05",
+                        "date_modified": "2016-07-04  8:12:05"
+                    }
+                ],
+                "name": "non"
+            },
+            {
+                "created_by": "1",
+                "id": 5,
+                "items": [
+                    {
+                        "bucketlist_id": 5,
+                        "done": false,
+                        "id": 4,
+                        "name": "Chew",
+                        "date_created": "2016-07-04  8:12:05",
+                        "date_modified": "2016-07-04  8:12:05"
+                    }
+                ],
+                "name": "non"
+            }
+        ]
+
+### Search Bucketlist [GET /bucketlists?q=chewbacca]
+
++ Response 200
+
+            [
+                {
+                    "created_by": "1",
+                    "id": 3,
+                    "items": [
+                        {
+                            "bucketlist_id": 3,
+                            "done": false,
+                            "id": 3,
+                            "name": "Obi-Wan Kenobi",
+                            "date_created": "2016-07-04  8:12:05",
+                            "date_modified": "2016-07-04  8:12:05"
+                        }
+                    ],
+                    "name": "chewbacca"
+                },
+                {
+                    "created_by": "1",
+                    "id": 5,
+                    "items": [
+                        {
+                            "bucketlist_id": 5,
+                            "done": false,
+                            "id": 4,
+                            "name": "Chew",
+                            "date_created": "2016-07-04  8:12:05",
+                            "date_modified": "2016-07-04  8:12:05"
+                        }
+                    ],
+                    "name": "Chewbacca"
+                }
+            ]
+
+
+### Search bucketlist with pagination [GET /bucketlists?q=chew&page=1&limit=1]
+
++ Request
+
+        + q (string) - Bucketlist we are searching for
+        + page (number) - The page of the records to return
+        + limit (number) - The limit of the records to return
+
++ Response 200
+
+            [
+                {
+                    "created_by": "1",
+                    "id": 3,
+                    "items": [
+                        {
+                            "bucketlist_id": 3,
+                            "done": false,
+                            "id": 3,
+                            "name": "Obi-Wan Kenobi",
+                            "date_created": "2016-07-04  8:12:05",
+                            "date_modified": "2016-07-04  8:12:05"
+                        }
+                    ],
+                    "name": "chewbacca"
+                }
+            ]
+
+
+## Bucketlist [/bucketlists/{id}]
+
+An authenticated user may create, view, update or delete a single bucketlist using this endpoint. It takes a bucketlist id.
+
++ Parameters
+    + id (number) - ID of the bucketlist in the form of an integer
+
+### Create A New Bucketlist [POST /bucketlists{?name}]
+
++ Parameters
+    + name (string) - Name of the bucketlist
+
++ Request (application/json)
+
+        {
+            "name": "Holiday in Vienna"
+        }
+
++ Response 201 (application/json)
+
+
+              {
+                "created_by": "1",
+                "id": 15,
+                "items": [],
+                "name": "Visit Vienna"
+              }
+
+### Show a Bucketlist [GET /bucketlists/4]
+
++ Response 200 (application/json)
+
+        {
+            "created_by": "1",
+            "id": 4,
+            "items": [
+                {
+                    "bucketlist_id": 4,
+                    "created_at": "2016-06-30T12:57:51.613Z",
+                    "done": false,
+                    "id": 4,
+                    "name": "Chewbacca",
+                    "updated_at": "2016-06-30T12:57:51.613Z"
+                }
+            ],
+            "name": "non"
+        }
+
+### Update a Bucketlist [PUT /bucketlists/13{?name}]
+
++ Parameters
+    + name (string) - name of the bucketlist
+
++ Request (application/json)
+
+        {
+            "name": "Jabba the hut"
+        }
+
++ Response 201
+
+        {
+            "created_by": "4",
+            "date_created": "2016-07-08 10:52:16",
+            "date_modified": "2016-07-08 12:59:06",
+            "id": 13,
+            "items": [
+                {
+                    "date_created": "2016-07-08 12:59:43",
+                    "date_modified": "2016-07-08 12:59:43",
+                    "done": false,
+                    "id": 11,
+                    "name": "item1"
+                },
+                {
+                    "date_created": "2016-07-08  1:03:48",
+                    "date_modified": "2016-07-08  1:03:48",
+                    "done": false,
+                    "id": 13,
+                    "name": "item2"
+                },
+                {
+                    "date_created": "2016-07-08  1:08:21",
+                    "date_modified": "2016-07-08  1:09:32",
+                    "done": false,
+                    "id": 14,
+                    "name": "foo"
+                }
+            ],
+            "name": "Jabba the hut"
+        }
+
+### Delete [DELETE /bucketlist/4]
+
++ Response 204
+
+# Group Item
+
+## Items Collection [/bucketlists/1/items/]
+
+This endpoint serves all bucketlist items belonging to a particular bucketlist.
+User can perform CRUD operations on this bucketlist items resource.
+
+### Get All Bucketlist Items [GET /bucketlist/3/items]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "bucketlist_id": 3,
+                "done": false,
+                "id": 3,
+                "name": "Obi-Wan Kenobi"
+                "date_created": "2016-07-04  8:12:05",
+                "date_modified": "2016-07-04  8:12:05"
+            },
+            {
+                "bucketlist_id": 3,
+                "done": false,
+                "id": 4,
+                "name": "Chewbacca",
+                "date_created": "2016-07-04  8:12:05",
+                "date_modified": "2016-07-04  8:12:05"
+            }
+        ]
+
+### Create A New Bucketlist Item [POST /bucketlists/3/items]
+
++ Request (application/json)
+
+        {
+            "name": "Visit Albert Hall",
+            "done": false
+        }
+
++ Response 201 (application/json)
+
+  + Body
+
+              {
+                "created_by": "1",
+                "id": 3,
+                "items": [
+                    {
+                        "bucketlist_id": 13,
+                        "done": false,
+                        "id": 13,
+                        "name": "Visit Albert Hall",
+                        "date_created": "2016-07-04  8:12:05",
+                        "date_modified": "2016-07-04  8:12:05",
+                    }
+                ],
+                "name": "Foo"
+             }
+
+
+## Bucketlist Item [/bucketlists/13/items/{id}]
+
+An authenticated user may view a single bucketlist item using this action. It takes a bucketlist and item id.
+
+### View a Bucketlist Item [GET /bucketlists/13/items/13]
+
++ Response 200 (application/json)
+
+        {
+            "bucketlist_id": 13,
+            "done": false,
+            "id": 13,
+            "name": "Museam",
+            "date_created": "2016-07-04  8:12:05",
+            "date_modified": "2016-07-04  8:12:05"
+        }
+
+### Update a Bucketlist [PUT /bucketlists/13/items/3?name=hutt]
+
++ Parameters
+    + name (string) - name of the bucketlist item
+
++ Request (application/json)
+
+        {
+            "name": "hutt"
+        }
+
++ Response 204
+
+### Delete [DELETE]
+
++ Response 204
