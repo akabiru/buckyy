@@ -131,11 +131,6 @@ The endpoint supports pagination, by default the pagination has a minimum defaul
 
 ### List Paginated Bucketlists [GET /bucketlists?page=2&limit=3]
 
-+ Request (application/json)
-
-        + page (number) - The page of the records determined by limit
-        + limit (number) - The number of records you want
-
 + Response 200 (application/json)
 
         [
@@ -260,10 +255,7 @@ An authenticated user may create, view, update or delete a single bucketlist usi
 + Parameters
     + id (number) - ID of the bucketlist in the form of an integer
 
-### Create A New Bucketlist [POST /bucketlists{?name}]
-
-+ Parameters
-    + name (string) - Name of the bucketlist
+### Create A New Bucketlist [POST /bucketlists]
 
 + Request (application/json)
 
@@ -301,10 +293,7 @@ An authenticated user may create, view, update or delete a single bucketlist usi
             "name": "non"
         }
 
-### Update a Bucketlist [PUT /bucketlists/13{?name}]
-
-+ Parameters
-    + name (string) - name of the bucketlist
+### Update a Bucketlist [PUT /bucketlists/13]
 
 + Request (application/json)
 
@@ -426,10 +415,7 @@ An authenticated user may view a single bucketlist item using this action. It ta
             "date_modified": "2016-07-04  8:12:05"
         }
 
-### Update a Bucketlist [PUT /bucketlists/13/items/3?name=hutt]
-
-+ Parameters
-    + name (string) - name of the bucketlist item
+### Update a Bucketlist [PUT /bucketlists/13/items/3]
 
 + Request (application/json)
 

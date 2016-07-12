@@ -12,7 +12,7 @@ RSpec.describe AuthenticationController, type: :controller do
 
   describe "#authenticate" do
     context "when valid request" do
-      before { post :authenticate, valid_attributes }
+      let!(:req) { post :authenticate, valid_attributes }
 
       it "returns an authentication token" do
         expect(json["auth_token"]).not_to be_nil
@@ -20,16 +20,16 @@ RSpec.describe AuthenticationController, type: :controller do
     end
 
     context "when invalid request" do
-      before { post :authenticate, invalid_attributes }
+      let!(:req) { post :authenticate, invalid_attributes }
 
       it "returns a failure message" do
-        expect(response.body).to match(/Invalid credentials/)
+        expect(json["message"]).to match(/Invalid credentials/)
       end
     end
   end
 
   describe "#logout" do
-    before { post :authenticate, valid_attributes }
+    let!(:req) { post :authenticate, valid_attributes }
 
     context "when first time logout" do
       it "logs out the user" do

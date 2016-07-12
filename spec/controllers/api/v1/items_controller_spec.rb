@@ -11,7 +11,7 @@ RSpec.describe API::V1::ItemsController, type: :controller do
   it_behaves_like "an api controller", bucketlist_id: "foo", id: "bar"
 
   describe "GET #index" do
-    before { get :index, bucketlist_id: bucketlist.id }
+    let!(:req) { get :index, bucketlist_id: bucketlist.id }
 
     it "retuns the bucketlist items" do
       expect(json.size).to eq(1)
@@ -24,7 +24,7 @@ RSpec.describe API::V1::ItemsController, type: :controller do
   end
 
   describe "GET #show" do
-    before { get :show, bucketlist_id: bucketlist.id, id: item.id }
+    let!(:req) { get :show, bucketlist_id: bucketlist.id, id: item.id }
 
     it "retuns the bucketlist item" do
       expect(json["name"]).to eq(item.name)

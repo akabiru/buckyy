@@ -7,7 +7,7 @@ RSpec.describe UsersController, type: :controller do
   end
   describe "#create" do
     context "when valid request" do
-      before { post :create, valid_attributes }
+      let!(:req) { post :create, valid_attributes }
 
       it "creates a new user" do
         expect(User.count).to eq(1)
@@ -27,7 +27,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context "when invalid request" do
-      before { post :create, {} }
+      let!(:req) { post :create, {} }
 
       it "does not create a new user" do
         expect(User.count).to eq(0)
