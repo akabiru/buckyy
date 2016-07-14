@@ -46,17 +46,14 @@ RSpec.describe "Bucketlists API", type: :request do
         it_behaves_like "a schema", "bucketlist"
 
         it "returns first 20 bucketlists" do
-          expect(json.first["id"]).to eq(bucketlists.first.id)
           expect(json.size).to eq(20)
         end
       end
     end
   end
 
-  context "when an authentication token is not passed" do
+  include_context "unauthenticated request" do
     before { get "/bucketlists", {}, invalid_headers }
-
-    it_behaves_like "an unauthenticated request"
   end
 
   describe "GET /bucketlists/:id" do
@@ -82,10 +79,8 @@ RSpec.describe "Bucketlists API", type: :request do
       end
     end
 
-    context "when an authentication token is not passed" do
+    include_context "unauthenticated request" do
       before { get "/bucketlists/#{id}", {}, invalid_headers }
-
-      it_behaves_like "an unauthenticated request"
     end
   end
 
@@ -112,10 +107,8 @@ RSpec.describe "Bucketlists API", type: :request do
       end
     end
 
-    context "when an authentication token is not passed" do
-      let!(:req) { post "/bucketlists", valid_attributes, invalid_headers }
-
-      it_behaves_like "an unauthenticated request"
+    include_context "unauthenticated request" do
+      before { post "/bucketlists", valid_attributes, invalid_headers }
     end
   end
 
@@ -137,16 +130,13 @@ RSpec.describe "Bucketlists API", type: :request do
 
       context "when bucketlist does not exist" do
         let(:id) { 0 }
-        let(:message) { "Couldn't find Bucketlist" }
 
         it_behaves_like "a http response", 404, /Couldn't find Bucketlist/
       end
     end
 
-    context "when an authentication token is not passed" do
+    include_context "unauthenticated request" do
       before { put "/bucketlists/#{id}", valid_attributes, invalid_headers }
-
-      it_behaves_like "an unauthenticated request"
     end
   end
 
@@ -159,10 +149,8 @@ RSpec.describe "Bucketlists API", type: :request do
       it_behaves_like "a http response", 204
     end
 
-    context "when an authentication token is not passed" do
+    include_context "unauthenticated request" do
       before { delete "/bucketlists/#{id}", {}, invalid_headers }
-
-      it_behaves_like "an unauthenticated request"
     end
   end
 end

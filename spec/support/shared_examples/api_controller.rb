@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.shared_examples "an api controller" do |id_params|
   describe "rescues from Active::RecordRecordNotFound" do
     context "on GET #show" do

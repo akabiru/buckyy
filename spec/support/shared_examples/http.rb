@@ -8,12 +8,6 @@ RSpec.shared_examples "a http response" do |status, message = nil|
   end if message
 end
 
-RSpec.shared_examples "success" do
-  it "returns a status code 200" do
-    expect(response).to have_http_status(200)
-  end
-end
-
 RSpec.shared_examples "an unauthenticated request" do
   it "returns a missing token message" do
     expect(json["message"]).to match(/Missing token/)
