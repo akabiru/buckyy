@@ -1,0 +1,12 @@
+{
+  "type": { "enum": ["object", "array"] },
+  "required": ["id", "name", "done", "date_created", "date_modified"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "integer" },
+    "name": { "type": "string" },
+    "done": { "type": "boolean" },
+    "date_created": { "type": "string" },
+    "date_modified": { "type": "string" }
+  }
+}

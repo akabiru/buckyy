@@ -1,7 +1,7 @@
 require "rails_helper"
 require Rails.root.join "spec/concerns/exception_handler.rb"
 
-RSpec.describe API::V1::ApplicationController, type: :controller do
+RSpec.describe ApplicationController, type: :controller do
   let!(:user) { create(:user) }
   let!(:headers) { set_headers }
   let!(:invalid_headers) { set_invalid_headers }

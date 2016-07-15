@@ -19,6 +19,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.4'
   gem 'pry-rails'
   gem 'guard-rspec', require: false
+  gem 'json-schema'
 end
 
 group :test do
