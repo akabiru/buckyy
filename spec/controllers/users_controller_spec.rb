@@ -17,13 +17,7 @@ RSpec.describe UsersController, type: :controller do
         expect(json["auth_token"]).not_to be_nil
       end
 
-      it "returns a success message" do
-        expect(json["message"]).to match(/Account created successfully/)
-      end
-
-      it "returns status code 201" do
-        expect(response).to have_http_status(201)
-      end
+      it_behaves_like "a http response", 201, /Account created successfully/
     end
 
     context "when invalid request" do
@@ -33,13 +27,7 @@ RSpec.describe UsersController, type: :controller do
         expect(User.count).to eq(0)
       end
 
-      it "returns an error message" do
-        expect(response.body).to match(/Account could not be created/)
-      end
-
-      it "returns status 422" do
-        expect(response).to have_http_status(422)
-      end
+      it_behaves_like "a http response", 422, /Account could not be created/
     end
   end
 end
